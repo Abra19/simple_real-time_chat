@@ -18,8 +18,6 @@ Features:
 * formik
 * i18next
 * REST API
-* webpack (build)
-* railway (deploy)
 
 ### [Try the application](https://frontend-project-12-production-da8c.up.railway.app/)
 
