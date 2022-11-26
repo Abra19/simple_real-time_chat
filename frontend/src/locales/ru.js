@@ -4,6 +4,7 @@ export default {
     placeholders: {
       login: 'Ваш ник',
       password: 'Пароль',
+      newMessage: 'Введите новое сообщение ...',
     },
     entry: 'Войти',
     exit: 'Выйти',
@@ -20,5 +21,7 @@ export default {
       messages_few: '{{count}} сообщения',
       messages_many: '{{count}} сообщений',
     },
+    newMessage: 'Новое сообщение',
+    send: 'Отправить',
   },
 };
