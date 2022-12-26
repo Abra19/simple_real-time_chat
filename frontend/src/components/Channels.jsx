@@ -5,6 +5,7 @@ import { Col, Button } from 'react-bootstrap';
 const Channels = () => {
   const { t } = useTranslation();
   const { channels, currentChannelId } = useSelector((state) => state.channels);
+
   return (
     <Col xs={4} md={2} className="border-end pt-5 px-0 bg-light">
       <div className="d-flex justify-content-between mb-2 ps-4 pe-2">

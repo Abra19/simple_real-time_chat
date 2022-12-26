@@ -11,13 +11,14 @@ Features:
   * The ability to create and receive messages.
 
 ### Tech Stack:
-* React with hooks
-* Redux Toolkit
+* React / React Hooks
+* Redux / Redux Toolkit
 * React-Bootstrap
-* socket.io
-* formik
-* i18next
-* REST API
+* WebSocket(socket.io)
+* Axios
+* Formik
+* I18next
+* Yup
 
 ### [Try the application](https://frontend-project-12-production-da8c.up.railway.app/)
 

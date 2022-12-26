@@ -10,8 +10,8 @@ import {
 import { Button, Navbar, Container } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
-import AuthContext from '../contexts/index.jsx';
-import useAuth from '../hooks/auth.jsx';
+import AuthContext from '../contexts/index.js';
+import useAuth from '../hooks/auth.js';
 import routes from '../routes.js';
 
 import ChatPage from './ChatPage.jsx';
@@ -23,7 +23,7 @@ const AuthProvider = ({ children }) => {
 
   const logIn = () => setLoggedIn(true);
   const logOut = () => {
-    localStorage.removeItem('userId');
+    localStorage.removeItem('userdatas');
     setLoggedIn(false);
   };
 

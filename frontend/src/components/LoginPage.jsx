@@ -13,7 +13,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import useAuth from '../hooks/auth.jsx';
+import useAuth from '../hooks/auth.js';
 import loginImg from '../assets/login.jpeg';
 import routes from '../routes.js';
 
@@ -45,7 +45,7 @@ const LoginPage = () => {
           username: values.username,
           password: values.password,
         });
-        localStorage.setItem('userId', JSON.stringify(res.data));
+        localStorage.setItem('userdatas', JSON.stringify(res.data));
         auth.logIn();
         setAuthFailed(false);
         navigate('/');

@@ -1,22 +1,51 @@
+import React, { useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
+import * as yup from 'yup';
 import { Col, Form, Button } from 'react-bootstrap';
+
+import useSocket from '../hooks/socket.js';
 
 const Messages = () => {
   const { t } = useTranslation();
-  const { messages } = useSelector((state) => state.messages);
+
+  const { addNewMessage } = useSocket();
+
+  const refInput = useRef();
+
   const { channels, currentChannelId } = useSelector((state) => state.channels);
+
   const currentChannelName = channels.length !== 0
     ? channels.find((el) => el.id === currentChannelId).name : '';
-  const currentChannelMessagesLength = messages
-    .filter((el) => el.channelId === currentChannelId).length;
+
+  const { messages } = useSelector((state) => state.messages);
+  const currentMessages = messages.filter((el) => el.channelId === currentChannelId);
+  const currentMessagesLength = currentMessages ? currentMessages.length : 0;
+
+  const chatSchema = yup.object().shape({
+    body: yup.string().trim().required(),
+  });
+
   const formik = useFormik({
     initialValues: {
-      messageBody: '',
+      body: '',
     },
+    validationSchema: chatSchema,
     onSubmit: (values) => {
-      console.log(values);
+      const { body } = values;
+      const { username } = JSON.parse(localStorage.getItem('userdatas'));
+
+      if (body) {
+        const newMessage = {
+          body,
+          channelId: currentChannelId,
+          username,
+        };
+        addNewMessage(newMessage);
+        formik.resetForm();
+      }
+      refInput.current.focus();
     },
   });
 
@@ -28,13 +57,13 @@ const Messages = () => {
             <b>{`# ${currentChannelName}`}</b>
           </p>
           <span className="text-muted">
-            {t('messagesCounter.messages', { count: currentChannelMessagesLength })}
+            {t('messagesCounter.messages', { count: currentMessagesLength })}
           </span>
         </div>
         <div id="messages-box" className="chat-messages overflow-auto px-5">
-          {currentChannelMessagesLength === 0 ? '' : messages.map((el) => (
+          {currentMessagesLength === 0 ? '' : currentMessages.map((el) => (
             <div className="text-break mb-2" key={el.id}>
-              <b>{el.author}</b>
+              <b>{el.username}</b>
               {`: ${el.body}`}
             </div>
           ))}
@@ -48,11 +77,12 @@ const Messages = () => {
                 placeholder={t('placeholders.newMessage')}
                 className="border-0 p-0 ps-2"
                 onChange={formik.handleChange}
-                value={formik.values.username}
+                value={formik.values.body}
+                ref={refInput}
               />
               <Button
                 type="submit"
-                disabled
+                disabled=""
                 variant=""
                 className="btn-group-vertical border-0"
               >
