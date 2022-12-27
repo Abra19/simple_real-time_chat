@@ -1,7 +1,12 @@
-import store from '../slices/index.js';
-import { addMessage } from '../slices/messagesSlice.js'; //
+import { io } from 'socket.io-client';
 
-const socketApi = (socket) => {
+import store from '../slices/index.js';
+import { addMessage } from '../slices/messagesSlice.js';
+import { addChannel, changeCurrentChannel } from '../slices/channelsSlice.js';
+
+const socketApi = () => {
+  const socket = io();
+
   const { dispatch } = store;
 
   const apiConnect = () => socket.connect();
@@ -18,7 +23,24 @@ const socketApi = (socket) => {
     }
   });
 
-  return { apiConnect, apiDisconnect, addNewMessage };
+  socket.on('newChannel', (channel) => {
+    dispatch(addChannel(channel));
+  });
+
+  const addNewChannel = (channel) => socket.emit('newChannel', channel, (resp) => {
+    if (resp.status === 'ok') {
+      dispatch(changeCurrentChannel(resp.data.id));
+    } else {
+      console.log(resp.status); // temporary solution - to do
+    }
+  });
+
+  return {
+    apiConnect,
+    apiDisconnect,
+    addNewMessage,
+    addNewChannel,
+  };
 };
 
 export default socketApi;

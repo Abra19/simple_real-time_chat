@@ -1,16 +1,33 @@
-import { useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Col, Button } from 'react-bootstrap';
 
+import ModalOnAddChannel from './modal/ModalOnAddChannel.jsx';
+import { changeCurrentChannel } from '../slices/channelsSlice.js';
+import { openModal } from '../slices/modalSlice.js';
+
 const Channels = () => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   const { channels, currentChannelId } = useSelector((state) => state.channels);
+  const selector = useSelector((state) => state.modals);
+  console.log(selector);
+  const { modalType } = selector.modals;
+
+  const handleChangeClick = (id) => {
+    dispatch(changeCurrentChannel(id));
+  };
 
   return (
     <Col xs={4} md={2} className="border-end pt-5 px-0 bg-light">
       <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
         <span>{t('channelsTitle')}</span>
-        <Button variant="" className="p-0 text-primary btn-group-vertical">
+        <Button
+          variant=""
+          className="p-0 text-primary btn-group-vertical"
+          onClick={() => dispatch(openModal('addChannel'))}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 16 16"
@@ -28,6 +45,7 @@ const Channels = () => {
         {channels.map((el) => (
           <li className="nav-item w-100" key={el.id}>
             <Button
+              onClick={() => handleChangeClick(el.id)}
               variant={el.id === currentChannelId ? 'secondary' : 'light'}
               className="w-100 rounded-0 text-start"
             >
@@ -37,6 +55,7 @@ const Channels = () => {
           </li>
         ))}
       </ul>
+      { modalType === 'addChannel' && <ModalOnAddChannel /> }
     </Col>
   );
 };

@@ -3,10 +3,10 @@ import React, { useMemo } from 'react';
 import { SocketContext } from './index.js';
 
 const SocketProvider = ({ api, children }) => {
-  const { addNewMessage } = api;
-  const functions = useMemo(() => ({ addNewMessage }), [addNewMessage]);
+  const { addNewMessage, addNewChannel } = api;
+  const values = useMemo(() => ({ addNewMessage, addNewChannel }), [addNewMessage, addNewChannel]);
   return (
-    <SocketContext.Provider value={functions}>
+    <SocketContext.Provider value={values}>
       {children}
     </SocketContext.Provider>
   );

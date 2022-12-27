@@ -22,6 +22,13 @@ export default {
       messages_many: '{{count}} сообщений',
     },
     newMessage: 'Новое сообщение',
+    messageBody: 'Сообщение не может быть пустым',
     send: 'Отправить',
+    cancel: 'Отменить',
+    modal: {
+      add: 'Добавить канал',
+      unique: 'Должно быть уникальным',
+      lengthParams: 'От 3 до 20 символов',
+    },
   },
 };
