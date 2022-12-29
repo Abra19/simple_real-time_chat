@@ -8,8 +8,8 @@ import useSocket from '../../hooks/socket.js';
 import { closeModal } from '../../slices/modalSlice';
 import { newChannelSchema } from '../../validation/validationSchema';
 
-const ModalOnAddChannel = () => {
-  const { addNewChannel } = useSocket();
+const RenameChannel = () => {
+  const { renameChannel } = useSocket();
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const inputModal = useRef(null);
@@ -20,16 +20,17 @@ const ModalOnAddChannel = () => {
 
   const { channels } = useSelector((state) => state.channels);
   const { modals } = useSelector((state) => state.modals);
-  const { isShown } = modals;
+  const { isShown, targetId } = modals;
+  const currentChanel = channels.find((el) => el.id === targetId);
 
   const formik = useFormik({
     initialValues: {
-      channelName: '',
+      channelName: currentChanel.name,
     },
     validationSchema: newChannelSchema(channels, t('modal.unique'), t('modal.lengthParams')),
     onSubmit: (values) => {
-      addNewChannel({ name: values.channelName });
-      formik.resetForm();
+      console.log(values.channelName);
+      renameChannel({ name: values.channelName, id: targetId });
       dispatch(closeModal());
     },
   });
@@ -39,11 +40,11 @@ const ModalOnAddChannel = () => {
   return (
     <Modal show={isShown} centered>
       <Modal.Header closeButton onHide={handleClose}>
-        <Modal.Title>{t('modal.add')}</Modal.Title>
+        <Modal.Title>{t('modal.rename')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
-          <Form.Label className="visually-hidden" htmlFor="channelName">{t('modal.add')}</Form.Label>
+          <Form.Label className="visually-hidden" htmlFor="channelName">{t('modal.rename')}</Form.Label>
           <Form.Control
             id="channelName"
             name="channelName"
@@ -57,16 +58,18 @@ const ModalOnAddChannel = () => {
           <Form.Control.Feedback type="invalid">
             {formik.errors.channelName}
           </Form.Control.Feedback>
-          <Button onClick={handleClose} variant="secondary">
-            {t('cancel')}
-          </Button>
-          <Button type="submit" variant="primary">
-            {t('send')}
-          </Button>
+          <div className="d-flex justify-content-end">
+            <Button onClick={handleClose} variant="secondary" className="me-2">
+              {t('cancel')}
+            </Button>
+            <Button type="submit" variant="primary">
+              {t('send')}
+            </Button>
+          </div>
         </Form>
       </Modal.Body>
     </Modal>
   );
 };
 
-export default ModalOnAddChannel;
+export default RenameChannel;

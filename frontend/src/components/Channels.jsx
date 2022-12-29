@@ -1,9 +1,14 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { Col, Button } from 'react-bootstrap';
+import {
+  Col,
+  Button,
+  ButtonGroup,
+  Dropdown,
+} from 'react-bootstrap';
 
-import ModalOnAddChannel from './modal/ModalOnAddChannel.jsx';
+import getModal from './modal/index.js';
 import { changeCurrentChannel } from '../slices/channelsSlice.js';
 import { openModal } from '../slices/modalSlice.js';
 
@@ -12,11 +17,18 @@ const Channels = () => {
   const dispatch = useDispatch();
   const { channels, currentChannelId } = useSelector((state) => state.channels);
   const selector = useSelector((state) => state.modals);
-  console.log(selector);
   const { modalType } = selector.modals;
 
   const handleChangeClick = (id) => {
     dispatch(changeCurrentChannel(id));
+  };
+
+  const renderModal = () => {
+    if (modalType === '') {
+      return null;
+    }
+    const Component = getModal(modalType);
+    return <Component />;
   };
 
   return (
@@ -26,7 +38,7 @@ const Channels = () => {
         <Button
           variant=""
           className="p-0 text-primary btn-group-vertical"
-          onClick={() => dispatch(openModal('addChannel'))}
+          onClick={() => dispatch(openModal({ type: 'adding', targetId: null }))}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -44,18 +56,32 @@ const Channels = () => {
       <ul className="nav flex-column nav-pills nav-fill px-2">
         {channels.map((el) => (
           <li className="nav-item w-100" key={el.id}>
-            <Button
-              onClick={() => handleChangeClick(el.id)}
-              variant={el.id === currentChannelId ? 'secondary' : 'light'}
-              className="w-100 rounded-0 text-start"
-            >
-              <span className="me-1">#</span>
-              {el.name}
-            </Button>
+            <ButtonGroup className="d-flex show dropdown">
+              <Button
+                onClick={() => handleChangeClick(el.id)}
+                variant={el.id === currentChannelId ? 'secondary' : 'light'}
+                className="w-100 rounded-0 text-start text-truncate"
+              >
+                <span className="me-1">#</span>
+                {el.name}
+              </Button>
+              { el.removable
+                && (
+                  <Dropdown>
+                    <Dropdown.Toggle split variant={el.id === currentChannelId ? 'secondary' : 'light'} className="flex-grow-0 dropdownCustom">
+                      <span className="visually-hidden">{t('modal.toggle')}</span>
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                      <Dropdown.Item onClick={() => dispatch(openModal({ type: 'removing', targetId: el.id }))}>{t('modal.remove')}</Dropdown.Item>
+                      <Dropdown.Item onClick={() => dispatch(openModal({ type: 'renaming', targetId: el.id }))}>{t('modal.rename')}</Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                )}
+            </ButtonGroup>
           </li>
         ))}
       </ul>
-      { modalType === 'addChannel' && <ModalOnAddChannel /> }
+      { renderModal() }
     </Col>
   );
 };

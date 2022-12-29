@@ -29,6 +29,12 @@ export default {
       add: 'Добавить канал',
       unique: 'Должно быть уникальным',
       lengthParams: 'От 3 до 20 символов',
+      toggle: 'Переключатель режимов',
+      rename: 'Переименовать',
+      renameChannel: 'Переименовать канал',
+      remove: 'Удалить',
+      removeChannel: 'Удалить канал',
+      confirm: 'Уверены?',
     },
   },
 };
