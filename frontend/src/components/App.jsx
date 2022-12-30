@@ -16,6 +16,7 @@ import routes from '../routes.js';
 
 import ChatPage from './ChatPage.jsx';
 import LoginPage from './LoginPage.jsx';
+import Signup from './Signup.jsx';
 import NotFound from './NotFound.jsx';
 
 const AuthProvider = ({ children }) => {
@@ -77,7 +78,8 @@ const App = () => {
               )}
             />
             <Route path={routes.loginPagePath()} element={<LoginPage />} />
-            <Route path="*" element={<NotFound />} />
+            <Route path={routes.signupPagePath()} element={<Signup />} />
+            <Route path={routes.notFoundPath()} element={<NotFound />} />
           </Routes>
         </Router>
       </div>
