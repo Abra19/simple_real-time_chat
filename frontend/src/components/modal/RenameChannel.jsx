@@ -3,6 +3,7 @@ import { Modal, Form, Button } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
+import { toast } from 'react-toastify';
 
 import useSocket from '../../hooks/socket.js';
 import { closeModal } from '../../slices/modalSlice';
@@ -29,9 +30,9 @@ const RenameChannel = () => {
     },
     validationSchema: newChannelSchema(channels, t('modal.unique'), t('modal.lengthParams')),
     onSubmit: (values) => {
-      console.log(values.channelName);
       renameChannel({ name: values.channelName, id: targetId });
       dispatch(closeModal());
+      toast.success(t('success.renameChannel'));
     },
   });
 

@@ -3,6 +3,7 @@ import { Modal, Form, Button } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
+import { toast } from 'react-toastify';
 
 import useSocket from '../../hooks/socket.js';
 import { closeModal } from '../../slices/modalSlice';
@@ -31,6 +32,7 @@ const AddChannel = () => {
       addNewChannel({ name: values.channelName });
       formik.resetForm();
       dispatch(closeModal());
+      toast.success(t('success.newChannel'));
     },
   });
 
