@@ -8,12 +8,12 @@ import { toast } from 'react-toastify';
 
 import useAuth from '../hooks/auth.js';
 import routes from '../routes.js';
-import { loginSchema } from '../validation/validationSchema.js';
-import LoginCard from './LoginCard.jsx';
+import { registrationSchema } from '../validation/validationSchema.js';
+import SignupCard from './SignupCard.jsx';
 
-const LoginPage = () => {
+const SignupPage = () => {
   const inputNameRef = useRef();
-  const [authFailed, setAuthFailed] = useState(false);
+  const [registrationFailed, setRegistrationFailed] = useState(false);
   const auth = useAuth();
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -26,24 +26,25 @@ const LoginPage = () => {
     initialValues: {
       username: '',
       password: '',
+      passwordConfirmation: '',
     },
-    validationSchema: loginSchema(t('errors.required')),
+    validationSchema: registrationSchema(t('registrationRules.name'), t('registrationRules.password'), t('registrationRules.passwordEquality'), t('errors.required')),
     onSubmit: async (values) => {
       try {
-        const res = await axios.post(routes.loginPath(), {
+        const res = await axios.post(routes.signupPath(), {
           username: values.username,
           password: values.password,
         });
         localStorage.setItem('userdatas', JSON.stringify(res.data));
         auth.logIn();
-        setAuthFailed(false);
-        navigate(routes.chatPagePath());
+        setRegistrationFailed(false);
+        navigate('/');
       } catch (err) {
         formik.setSubmitting(false);
         if (err.isAxiosError) {
-          if (err.response.status === 401) {
-            setAuthFailed(true);
-            navigate(routes.loginPagePath());
+          if (err.response.status === 409) {
+            setRegistrationFailed(true);
+            navigate(routes.signupPagePath());
             inputNameRef.current.select();
           } else {
             toast.error(t('errors.network'));
@@ -57,26 +58,26 @@ const LoginPage = () => {
 
   const values = {
     formik,
-    title: t('entry'),
-    placeholderName: t('placeholders.login'),
+    title: t('registration'),
+    placeholderName: t('placeholders.username'),
     placeholderPassword: t('placeholders.password'),
-    noAccount: t('noAccount'),
-    registration: t('registration'),
-    error: t('errors.invalidFeedback'),
-    authFailed,
+    placeholderPasswordConfirmation: t('placeholders.passwordConfirmation'),
+    userExists: t('errors.userExist'),
+    makedRegistration: t('makeRegistration'),
+    registrationFailed,
     inputNameRef,
-    path: routes.signupPagePath(),
   };
 
   return (
     <Container fluid className="h-100">
       <Row className="justify-content-center align-content-center h-100">
         <Col xs={12} md={8} xxl={6}>
-          <LoginCard values={values} />
+          <SignupCard values={values} />
         </Col>
       </Row>
     </Container>
   );
+// END
 };
 
-export default LoginPage;
+export default SignupPage;

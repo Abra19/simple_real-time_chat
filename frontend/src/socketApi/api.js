@@ -34,6 +34,7 @@ const socketApi = () => {
   });
 
   const addNewChannel = (channel) => socket.emit('newChannel', channel, (resp) => {
+    console.log(resp.status);
     if (resp.status === 'ok') {
       dispatch(changeCurrentChannel(resp.data.id));
     } else {
