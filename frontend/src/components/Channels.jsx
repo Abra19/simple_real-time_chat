@@ -7,6 +7,7 @@ import {
   ButtonGroup,
   Dropdown,
 } from 'react-bootstrap';
+import filter from 'leo-profanity';
 
 import getModal from './modal/index.js';
 import { changeCurrentChannel } from '../slices/channelsSlice.js';
@@ -63,7 +64,7 @@ const Channels = () => {
                 className="w-100 rounded-0 text-start text-truncate"
               >
                 <span className="me-1">#</span>
-                {el.name}
+                {filter.clean(el.name)}
               </Button>
               { el.removable
                 && (

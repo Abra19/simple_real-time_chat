@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import i18next from 'i18next';
 import { I18nextProvider, initReactI18next } from 'react-i18next';
 import { Provider as StoreProvider } from 'react-redux';
+import filter from 'leo-profanity';
 
 import App from './components/App.jsx';
 import resources from './locales/index.js';
@@ -19,6 +20,9 @@ const init = async () => {
       resources,
       fallbackLng: 'ru',
     });
+
+  filter.add(filter.getDictionary('en'));
+  filter.add(filter.getDictionary('ru'));
 
   const root = ReactDOM.createRoot(document.getElementById('root'));
   return root.render(

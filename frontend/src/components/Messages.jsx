@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import { Col, Form, Button } from 'react-bootstrap';
+import filter from 'leo-profanity';
 
 import useSocket from '../hooks/socket.js';
 import { chatSchema } from '../validation/validationSchema.js';
@@ -65,8 +66,8 @@ const Messages = () => {
         <div id="messages-box" className="chat-messages overflow-auto px-5">
           {currentMessagesLength === 0 ? '' : currentMessages.map((el) => (
             <div className="text-break mb-2" key={el.id}>
-              <b>{el.username}</b>
-              {`: ${el.body}`}
+              <b>{filter.clean(el.username)}</b>
+              {`: ${filter.clean(el.body)}`}
             </div>
           ))}
         </div>
