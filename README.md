@@ -19,6 +19,9 @@ Features:
 * Formik
 * I18next
 * Yup
+* React-toastify
+* Leo-profanity
+* Rollbar
 
 ### [Try the application](https://frontend-project-12-production-da8c.up.railway.app/)
 
