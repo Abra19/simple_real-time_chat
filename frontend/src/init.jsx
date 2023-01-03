@@ -14,11 +14,12 @@ import SocketProvider from './contexts/SocketProvider.jsx';
 
 const init = async () => {
   const rollbarConfig = {
-    enabled: true,
     accessToken: process.env.REACT_APP_ROLLBAR_ACCESS_TOKEN,
     captureUncaught: true,
     captureUnhandledRejections: true,
-    environment: 'production',
+    payload: {
+      environment: 'production',
+    },
   };
 
   console.log(rollbarConfig);
