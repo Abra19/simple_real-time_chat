@@ -21,6 +21,8 @@ const init = async () => {
     environment: 'production',
   };
 
+  console.log(rollbarConfig);
+
   const api = socketApi();
   const i18n = i18next.createInstance();
   await i18n
