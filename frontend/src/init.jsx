@@ -14,7 +14,7 @@ import SocketProvider from './contexts/SocketProvider.jsx';
 
 const init = async () => {
   const rollbarConfig = {
-    accessToken: 'dc7d6a1224924ca2a15e35f91c27ac07',
+    accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
     captureUncaught: true,
     captureUnhandledRejections: true,
     payload: {
