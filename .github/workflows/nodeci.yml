@@ -26,3 +26,8 @@ jobs:
         run: make install
       - name: Run linter
         run: make lint-frontend
+      - name: Run build
+        run: |
+          touch .env
+          echo ROLLBAR_ACCESS_TOKEN =${{ secrets.ROLLBAR_ACCESS_TOKEN }} >> .env
+          make build

@@ -21,9 +21,11 @@ const init = async () => {
 
   const rollbarConfig = {
     accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
-    environment: process.env.ROLLBAR_ENVIRONMET,
     captureUncaught: true,
     captureUnhandledRejections: true,
+    payload: {
+      environment: 'production',
+    },
   };
 
   const api = socketApi();
