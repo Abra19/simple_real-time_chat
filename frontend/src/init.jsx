@@ -27,7 +27,6 @@ const init = async () => {
     environment: 'production',
   };
 
-  console.log(process.env);
   const api = socketApi();
   const i18n = i18next.createInstance();
   await i18n
