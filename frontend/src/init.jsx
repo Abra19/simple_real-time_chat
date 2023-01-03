@@ -13,9 +13,17 @@ import socketApi from './socketApi/api.js';
 import SocketProvider from './contexts/SocketProvider.jsx';
 
 const init = async () => {
+  /*
   const rollbarConfig = {
     accessToken: 'a7c433d4953342a9819c8f8fd0b4dbea',
     environment: 'testenv',
+  }; */
+
+  const rollbarConfig = {
+    accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
+    environment: process.env.ROLLBAR_ENVIRONMET,
+    captureUncaught: true,
+    captureUnhandledRejections: true,
   };
 
   const api = socketApi();
@@ -30,11 +38,6 @@ const init = async () => {
   filter.add(filter.getDictionary('en'));
   filter.add(filter.getDictionary('ru'));
 
-  function TestError() {
-    const a = null;
-    return a.hello();
-  }
-
   const root = ReactDOM.createRoot(document.getElementById('root'));
   return root.render(
     <RollbarProvider config={rollbarConfig}>
@@ -42,7 +45,6 @@ const init = async () => {
         <StoreProvider store={store}>
           <SocketProvider api={api}>
             <I18nextProvider i18n={i18n}>
-              <TestError />
               <App />
             </I18nextProvider>
           </SocketProvider>
