@@ -30,6 +30,7 @@ const ModalComponent = (props) => {
             name="channelName"
             className="mb-2"
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             value={formik.values.channelName}
             isInvalid={formik.errors.channelName && formik.touched.channelName}
             disabled={formik.isSubmitting}
