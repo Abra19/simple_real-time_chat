@@ -15,9 +15,7 @@ import SocketProvider from './contexts/SocketProvider.jsx';
 const init = async () => {
   const rollbarConfig = {
     accessToken: '52df9dfb63424dd9ba56160c44702263',
-    captureUncaught: true,
-    captureUnhandledRejections: true,
-    environment: 'production',
+    environment: 'testenv',
   };
 
   const api = socketApi();
