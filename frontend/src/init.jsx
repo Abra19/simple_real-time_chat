@@ -22,6 +22,7 @@ const init = async () => {
   };
   console.log(rollbarConfig);
   console.log(process.env); // to do
+  // REACT_APP_ROLLBAR_ACCESS_TOKEN='a7c433d4953342a9819c8f8fd0b4dbea'
 
   const api = socketApi();
   const i18n = i18next.createInstance();
