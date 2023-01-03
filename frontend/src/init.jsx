@@ -20,8 +20,6 @@ const init = async () => {
     captureUnhandledRejections: true,
     environment: 'production',
   };
-  console.log(rollbarConfig); // to do
-  console.log(process.env); // to do
 
   const api = socketApi();
   const i18n = i18next.createInstance();
