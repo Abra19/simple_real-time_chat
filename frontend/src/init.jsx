@@ -21,7 +21,7 @@ const init = async () => {
 
   const rollbarConfig = {
     enabled: true,
-    accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
+    accessToken: 'a7c433d4953342a9819c8f8fd0b4dbea',
     captureUncaught: true,
     captureUnhandledRejections: true,
     environment: 'production',
