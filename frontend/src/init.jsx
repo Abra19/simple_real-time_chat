@@ -32,6 +32,11 @@ const init = async () => {
   filter.add(filter.getDictionary('en'));
   filter.add(filter.getDictionary('ru'));
 
+  function TestError() {
+    const a = null;
+    return a.hello();
+  }
+
   const root = ReactDOM.createRoot(document.getElementById('root'));
   return root.render(
     <RollbarProvider config={rollbarConfig}>
@@ -39,6 +44,7 @@ const init = async () => {
         <StoreProvider store={store}>
           <SocketProvider api={api}>
             <I18nextProvider i18n={i18n}>
+              <TestError />
               <App />
             </I18nextProvider>
           </SocketProvider>
