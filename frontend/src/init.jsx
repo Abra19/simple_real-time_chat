@@ -20,6 +20,7 @@ const init = async () => {
   }; */
 
   const rollbarConfig = {
+    enabled: true,
     accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
     captureUncaught: true,
     captureUnhandledRejections: true,
@@ -28,6 +29,7 @@ const init = async () => {
     },
   };
 
+  console.log(process.env);
   const api = socketApi();
   const i18n = i18next.createInstance();
   await i18n
