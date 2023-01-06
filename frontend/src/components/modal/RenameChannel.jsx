@@ -35,7 +35,6 @@ const RenameChannel = () => {
   const values = {
     isShown,
     handleClose,
-    labelName: t('modal.manageChanel'),
     title: t('modal.rename'),
     formik,
     cancelButton: t('cancel'),
