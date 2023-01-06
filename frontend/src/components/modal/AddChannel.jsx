@@ -35,6 +35,7 @@ const AddChannel = () => {
   const values = {
     isShown,
     handleClose,
+    labelName: t('modal.canalName'),
     title: t('modal.add'),
     formik,
     cancelButton: t('cancel'),

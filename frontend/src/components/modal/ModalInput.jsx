@@ -1,12 +1,12 @@
 import React, { useRef, useEffect } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
 
 const ModalComponent = (props) => {
   const { values } = props;
   const {
     isShown,
     handleClose,
+    labelName,
     title,
     formik,
     cancelButton,
@@ -18,8 +18,6 @@ const ModalComponent = (props) => {
     inputModal.current.focus();
   }, []);
 
-  const { t } = useTranslation();
-
   return (
     <Modal show={isShown} centered>
       <Modal.Header closeButton onHide={handleClose}>
@@ -27,7 +25,7 @@ const ModalComponent = (props) => {
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
-          <Form.Label className="visually-hidden" htmlFor="channelName">{t('modal.canalName')}</Form.Label>
+          <Form.Label className="visually-hidden" htmlFor="channelName">{labelName}</Form.Label>
           <Form.Control
             id="channelName"
             name="channelName"

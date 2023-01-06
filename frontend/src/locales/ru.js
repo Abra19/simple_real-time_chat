@@ -38,6 +38,7 @@ export default {
       removeChannel: 'Удалить канал',
       confirm: 'Уверены?',
       canalName: 'Имя канала',
+      manageChanel: 'Управление каналом',
     },
     registrationRules: {
       name: 'От 3 до 20 символов',
