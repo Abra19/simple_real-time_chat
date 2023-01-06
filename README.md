@@ -1,5 +1,5 @@
 ### Hexlet tests, Maintainability and linter status:
-[![Actions Status](https://github.com/Abra19/frontend-project-12/workflows/hexlet-check/badge.svg)](https://github.com/Abra19/frontend-project-12/actions)
+[![hexlet-check](https://github.com/Abra19/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Abra19/frontend-project-12/actions/workflows/hexlet-check.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/7568b96a41cce71d61ee/maintainability)](https://codeclimate.com/github/Abra19/frontend-project-12/maintainability)
 [![Node CI](https://github.com/Abra19/frontend-project-12/actions/workflows/nodeci.yml/badge.svg)](https://github.com/Abra19/frontend-project-12/actions/workflows/nodeci.yml)
 
