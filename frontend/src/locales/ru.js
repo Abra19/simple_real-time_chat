@@ -37,6 +37,7 @@ export default {
       remove: 'Удалить',
       removeChannel: 'Удалить канал',
       confirm: 'Уверены?',
+      canalName: 'Имя канала',
     },
     registrationRules: {
       name: 'От 3 до 20 символов',
