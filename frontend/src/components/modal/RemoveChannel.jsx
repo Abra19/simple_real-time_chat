@@ -18,9 +18,9 @@ const RemoveChannel = () => {
   const handleClose = () => dispatch(closeModal());
 
   const handleRemove = (id) => {
-    toast.success(t('success.removeChannel'));
     removeChannel(id);
     dispatch(closeModal());
+    toast.success(t('success.removeChannel'));
   };
 
   return (
