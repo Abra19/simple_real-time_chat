@@ -24,9 +24,13 @@ const RenameChannel = () => {
     },
     validationSchema: newChannelSchema(channels, t('modal.unique'), t('modal.lengthParams')),
     onSubmit: (values) => {
-      renameChannel({ name: values.channelName, id: targetId });
-      dispatch(closeModal());
-      toast.success(t('success.renameChannel'));
+      try {
+        renameChannel({ name: values.channelName, id: targetId });
+        dispatch(closeModal());
+        toast.success(t('success.renameChannel'));
+      } catch (err) {
+        toast.err(t('errors.channelRename'));
+      }
     },
   });
 

@@ -49,6 +49,10 @@ export default {
       userExist: 'Такой пользователь уже существует',
       required: 'Обязательное поле',
       network: 'Ошибка соединения',
+      message: 'Ошибка добавления сообщения',
+      channelAdd: 'Ошибка добавления канала',
+      channelRemove: 'Ошибка удаления канала',
+      channelRename: 'Ошибка переименования канала',
     },
     success: {
       newChannel: 'Канал создан',

@@ -1,7 +1,3 @@
-import { io } from 'socket.io-client';
-import { toast } from 'react-toastify';
-
-import store from '../slices/index.js';
 import { addMessage, removeAllChannelMessages } from '../slices/messagesSlice.js';
 import {
   addChannel,
@@ -10,9 +6,7 @@ import {
   renameChannel as renameChannelById,
 } from '../slices/channelsSlice.js';
 
-const socketApi = () => {
-  const socket = io();
-
+const chatApi = (socket, store) => {
   const { dispatch } = store;
 
   const apiConnect = () => socket.connect();
@@ -25,7 +19,7 @@ const socketApi = () => {
 
   const addNewMessage = (msg) => socket.emit('newMessage', msg, (resp) => {
     if (resp.status !== 'ok') {
-      toast.error(resp.status);
+      throw new Error(resp.status);
     }
   });
 
@@ -34,11 +28,10 @@ const socketApi = () => {
   });
 
   const addNewChannel = (channel) => socket.emit('newChannel', channel, (resp) => {
-    console.log(resp.status);
     if (resp.status === 'ok') {
       dispatch(changeCurrentChannel(resp.data.id));
     } else {
-      toast.error(resp.status);
+      throw new Error(resp.status);
     }
   });
 
@@ -49,7 +42,7 @@ const socketApi = () => {
 
   const removeChannel = (id) => socket.emit('removeChannel', { id }, (resp) => {
     if (resp.status !== 'ok') {
-      toast.error(resp.status);
+      throw new Error(resp.status);
     }
   });
 
@@ -59,7 +52,7 @@ const socketApi = () => {
 
   const renameChannel = (channel) => socket.emit('renameChannel', channel, (resp) => {
     if (resp.status !== 'ok') {
-      toast.error(resp.status);
+      throw new Error(resp.status);
     }
   });
 
@@ -73,4 +66,4 @@ const socketApi = () => {
   };
 };
 
-export default socketApi;
+export default chatApi;

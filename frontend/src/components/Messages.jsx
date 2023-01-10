@@ -3,7 +3,9 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import { Col, Form, Button } from 'react-bootstrap';
+import { animateScroll } from 'react-scroll';
 import filter from 'leo-profanity';
+import { toast } from 'react-toastify';
 
 import useSocket from '../hooks/socket.js';
 import { chatSchema } from '../validation/validationSchema.js';
@@ -13,20 +15,24 @@ const Messages = () => {
 
   const { addNewMessage } = useSocket();
 
+  const { channels, currentChannelId } = useSelector((state) => state.channels);
+  const { messages } = useSelector((state) => state.messages);
+
   const inputMessage = useRef(null);
 
   useEffect(() => {
     inputMessage.current.focus();
   }, []);
 
-  const { channels, currentChannelId } = useSelector((state) => state.channels);
+  useEffect(() => {
+    animateScroll.scrollToBottom({ containerId: 'messages-box' });
+  }, [messages]);
 
   const currentChannel = channels.length !== 0
     ? channels.find((el) => el.id === currentChannelId) : '';
 
   const currentChannelName = currentChannel ? currentChannel.name : '';
 
-  const { messages } = useSelector((state) => state.messages);
   const currentMessages = messages.filter((el) => el.channelId === currentChannelId);
   const currentMessagesLength = currentMessages ? currentMessages.length : 0;
 
@@ -45,8 +51,12 @@ const Messages = () => {
           channelId: currentChannelId,
           username,
         };
-        addNewMessage(newMessage);
-        formik.resetForm();
+        try {
+          addNewMessage(newMessage);
+          formik.resetForm();
+        } catch (err) {
+          toast.error(t('errors.message'));
+        }
       }
       inputMessage.current.focus();
     },
