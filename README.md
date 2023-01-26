@@ -6,7 +6,7 @@
 ### Project Description:
 The goal of the project - create a simple analogue of real-time chat application.
 Features:
-  * Registration and authorization;
+  * Registration and authentication;
   * The ability to create, rename and delete channels;
   * The ability to create and receive messages.
 
