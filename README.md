@@ -23,7 +23,7 @@ Features:
 * Leo-profanity
 * Rollbar
 
-### [Try the application](https://frontend-project-12-production-da8c.up.railway.app/)
+### [Try the application](https://simple-real-time-chat.vercel.app/)
 
 ### To get started
 
