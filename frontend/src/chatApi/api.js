@@ -1,4 +1,3 @@
-/* eslint-disable functional/no-throw-statement */
 import { addMessage, removeAllChannelMessages } from '../slices/messagesSlice.js';
 import {
   addChannel,
@@ -18,44 +17,59 @@ const chatApi = (socket, store) => {
     dispatch(addMessage(msg));
   });
 
-  const addNewMessage = (msg) => socket.emit('newMessage', msg, (resp) => {
-    if (resp.status !== 'ok') {
-      throw new Error(resp.status);
-    }
-  });
+  const addNewMessage = (msg) => (new Promise((resolve, reject) => {
+    socket.emit('newMessage', msg, (err, resp) => {
+      if (resp.status !== 'ok') {
+        reject(err);
+      } else {
+        resolve(resp);
+      }
+    });
+  }));
 
   socket.on('newChannel', (channel) => {
     dispatch(addChannel(channel));
   });
 
-  const addNewChannel = (channel) => socket.emit('newChannel', channel, (resp) => {
-    if (resp.status === 'ok') {
-      dispatch(changeCurrentChannel(resp.data.id));
-    } else {
-      throw new Error(resp.status);
-    }
-  });
+  const addNewChannel = (channel) => (new Promise((resolve, reject) => {
+    socket.emit('newChannel', channel, (err, resp) => {
+      if (resp.status === 'ok') {
+        dispatch(changeCurrentChannel(resp.data.id));
+        resolve(resp);
+      } else {
+        reject(err);
+      }
+    });
+  }));
 
   socket.on('removeChannel', (id) => {
     dispatch(removeChannelById(id));
     dispatch(removeAllChannelMessages(id));
   });
 
-  const removeChannel = (id) => socket.emit('removeChannel', { id }, (resp) => {
-    if (resp.status !== 'ok') {
-      throw new Error(resp.status);
-    }
-  });
+  const removeChannel = (id) => (new Promise((resolve, reject) => {
+    socket.emit('removeChannel', { id }, (err, resp) => {
+      if (resp.status === 'ok') {
+        resolve(resp);
+      } else {
+        reject(err);
+      }
+    });
+  }));
 
   socket.on('renameChannel', (channel) => {
     dispatch(renameChannelById(channel));
   });
 
-  const renameChannel = (channel) => socket.emit('renameChannel', channel, (resp) => {
-    if (resp.status !== 'ok') {
-      throw new Error(resp.status);
-    }
-  });
+  const renameChannel = (channel) => (new Promise((resolve, reject) => {
+    socket.emit('renameChannel', channel, (err, resp) => {
+      if (resp.status !== 'ok') {
+        reject(err);
+      } else {
+        resolve(resp);
+      }
+    });
+  }));
 
   return {
     apiConnect,
