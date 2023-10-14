@@ -5,7 +5,7 @@ export default {
       login: 'Ваш ник',
       username: 'Имя пользователя',
       password: 'Пароль',
-      passwordConfirmation: 'Подтвердите ваш пароль',
+      passwordConfirmation: 'Подтвердите пароль',
       newMessage: 'Введите новое сообщение ...',
     },
     entry: 'Войти',

@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Abra19/frontend-project-12#readme",
   "dependencies": {
-    "@hexlet/chat-server": "^1.1.6"
+    "@hexlet/chat-server": "^1.1.6",
+    "fastify": "^4.24.1"
   }
 }
