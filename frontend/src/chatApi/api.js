@@ -1,3 +1,4 @@
+/* eslint-disable functional/no-throw-statement */
 import { addMessage, removeAllChannelMessages } from '../slices/messagesSlice.js';
 import {
   addChannel,
