@@ -27,6 +27,6 @@ Features:
 
 ### To get started
 
-1. Clone git repo: `git clone git@github.com:Abra19/frontend-project-12.git`
+1. Clone git repo: `git clone git@github.com:Abra19/simple_real-time_chat.git`
 2. Install packages: `make install`
 3. Start: `make start`
